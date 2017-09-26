@@ -1,0 +1,22 @@
+﻿@using TalentConnect.Infrastructure;
+@if (Request.IsAuthenticated)
+{
+    <div class="float-right">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <ul class="float-right">
+                <li>
+                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-lock"></i>Log off</a>
+                </li>
+            </ul>
+        }
+    </div>
+}
+else
+{
+    <ul class="float-right">
+        <li><a href="/@Navigation.Account.Controller/@Navigation.Account.Register"><i class="fa fa-user"></i> Sign Up</a></li>
+        <li><a href="/@Navigation.Account.Controller/@Navigation.Account.Logon"><i class="fa fa-lock"></i> Log In</a></li>
+    </ul>
+}

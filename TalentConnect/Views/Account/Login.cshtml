@@ -1,0 +1,32 @@
+﻿@model TalentConnect.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@section PageTitle{
+    <h2><i class="fa fa-play-circle"></i>&nbsp;Login</h2>
+}
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "Please correct the errors", new { @class = "notification error" })
+    <div class="eight columns form">
+        <div class="form-row">
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+        <div class="form-row">
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div class="form-row">
+            <input type="submit" value="Log in" />
+        </div>
+        <p>
+            If you don't have an account, please @Html.ActionLink("Register", "Register")
+        </p>
+    </div>
+}

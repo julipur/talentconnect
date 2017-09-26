@@ -1,0 +1,97 @@
+﻿@model TalentConnect.Areas.Admin.ViewModels.JobViewModel
+@{
+    ViewBag.Title = "Add a Job";
+    Layout = "~/Views/Shared/_layoutsecondary.cshtml";    
+}
+
+@section PageTitle{
+    <h2><i class="fa fa-plus-circle"></i>&nbsp;Add a Job</h2>
+    <nav id="breadcrumbs">
+        <ul>
+            <li>You are here:</li>
+            <li><a href="#">Admin</a></li>
+            <li>Jobs</li>
+            <li>Add Job</li>
+        </ul>
+    </nav>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "Please correct the errors", new { @class = "notification error" })
+        <div class="eight columns form">
+            @Html.LabelFor(model => model.Title)
+            @Html.TextBoxFor(model => model.Title, new { @class = "search-field", placeholder = "Job Title" })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "error" })
+        </div>
+        <div class="eight columns form">
+            @Html.LabelFor(model => model.YearsOfExperince)
+            @Html.TextBoxFor(model => model.YearsOfExperince, new { @class = "search-field", placeholder = "Number of years required" })
+        </div>
+        <div class="eight columns form">
+            @Html.LabelFor(model => model.Hours)
+            @Html.TextBoxFor(model => model.Hours, new { @class = "search-field", placeholder = "hours / week" })
+        </div>
+        <div class="eight columns form">
+            @Html.LabelFor(model => model.Rate)
+            @Html.TextBoxFor(model => model.Rate, new { @class = "search-field", placeholder = "hourly/per-diem/salary" })
+        </div>
+        <div class="eight columns form">
+            @Html.LabelFor(model => model.City)
+            @Html.TextBoxFor(model => model.City, new { @class = "search-field", placeholder = "City" })
+        </div>
+        <div class="eight columns form">
+            @Html.LabelFor(model => model.ClosingDate)
+            @Html.TextBoxFor(model => model.ClosingDate, new { @class = "search-field", placeholder = "dd-mm-yyyy" })
+        </div>
+        <div class="eight columns form">
+            @Html.LabelFor(model => model.SelectedProvince)
+            @Html.DropDownListFor(m => m.SelectedProvince, new SelectList(Model.Provinces, "Abbreviation", "Name"), "Select Province", new { @class = "chosen-select-no-single" })
+        </div>
+        <div class="eight columns form">
+            @Html.LabelFor(model => model.SelectedJobType)
+            @Html.DropDownListFor(m => m.SelectedJobType, new SelectList(Model.JobTypes, "Key", "Value"), "Select Job Type", new { @class = "chosen-select-no-single" })
+            @Html.ValidationMessageFor(model => model.SelectedJobType, "", new { @class = "error" })
+        </div>
+        <div class="sixteen columns form">
+            @Html.LabelFor(model => model.ShortDescription)
+            @Html.TextBoxFor(model => model.ShortDescription, new { @class = "search-field", placeholder = "Short Description" })
+            @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "error" })
+        </div>
+        <div class="sixteen columns form">
+            <label for="Description">Description</label>
+            @Html.TextAreaFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "error" })
+        </div>
+
+        <div class="sixteen columns form">
+            <div class="col-md-offset-2 col-md-10">
+                <br />
+                <input type="submit" value="Save" class="btn btn-default" />
+                <br /><br />
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    @assets.tinymce()
+}
+
+@section onready {
+    tinymce.init({
+    selector: 'textarea',
+    height: 300,
+    menubar: false,
+    plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code'
+    ],
+    toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    content_css: '//www.tinymce.com/css/codepen.min.css'
+    });
+
+    $('.chosen-select-no-single').chosen({disable_search_threshold:10, width:"100%"});
+}

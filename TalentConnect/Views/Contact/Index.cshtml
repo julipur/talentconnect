@@ -1,0 +1,97 @@
+﻿@model TalentConnect.ViewModels.ContactViewModel
+@{
+    ViewBag.Title = "Contact";
+}
+
+@section PageTitle{
+    <h2><i class="fa fa-link"></i>&nbsp;Contact Information</h2>
+}
+
+<div class="container">
+    <div class="eleven columns">
+            @if (ViewBag.Message != null)
+            {
+                <span class="notification warning">@ViewBag.Message</span>
+            }
+            else
+            {
+                <p>Send us a message below and we will get back to you</p>
+                using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "Please correct the errors", new { @class = "notification error" })
+                    <div class="form-row">
+                        @Html.LabelFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Name)
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+
+                    <div class="form-row">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+
+                    <div class="form-row">
+                        @Html.LabelFor(m => m.Message)
+                        @Html.TextAreaFor(m => m.Message, new { cols = "40", rows = "3", spellcheck = "true" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-offset-2 col-md-4">
+                            <br />
+                            <input type="submit" value="Send Message" class="btn btn-default" />
+                            <br /><br />
+                        </div>
+                    </div>
+                }
+            }
+
+    </div>
+    <!-- Container / End -->
+    <!-- Sidebar
+    ================================================== -->
+    <div class="five columns">
+
+        <!-- Information -->
+        <h3 class="margin-bottom-10">Office</h3>
+        <div class="widget-box">
+            <ul class="contact-informations">
+                <li>7215 Goreway Drive</li>
+                <li>Suite 1A21 (Westwood Mall)</li>
+                <li>Mississauga, Ontario  L4T 0B4</li>
+            </ul>
+
+            <ul class="contact-informations second">
+                <!--li><i class="fa fa-phone"></i> <p>+48 880 440 110</p></li-->
+                <li><i class="fa fa-envelope"></i><p><a href="mailto:<a href=" mailto:team@talentconnect.co">team@talentconnect.co</a></p></li>
+            </ul>
+        </div>
+        <section class="google-map-container">
+            <div id="googlemaps" class="google-map google-map-full"></div>
+        </section>
+    </div>
+</div>
+@section HeadScripts{
+    <script type="text/javascript">
+
+        function initMap() {
+            var office = { lat: 43.717617, lng: -79.636748 };
+            var map = new google.maps.Map(document.getElementById('googlemaps'), {
+                zoom: 14,
+                center: office
+            });
+            var marker = new google.maps.Marker({
+                position: office,
+                map: map
+            });
+        }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkYVLjcnFqVXvMpgSOJ8aaL2OwsH03920&callback=initMap"></script>
+
+}
+
+@section onready{
+    $("#contact-nav").attr("id", "current");
+}

@@ -1,0 +1,33 @@
+﻿@using TalentConnect.Infrastructure;
+@model TalentConnect.ViewModels.VacanciesViewModel
+@{
+    ViewBag.Title = "Available Vacancies";
+}
+
+@section PageTitle{
+    <h2><i class="fa fa-briefcase"></i>&nbsp;Avaliable Vacancies</h2>
+}
+<div class="eleven columns">
+    <ul class="job-list full">
+        @foreach (var vacancy in Model.Vacancies)
+        {
+            <li>
+                <a href="/@Navigation.Vacancies.Controller/@Navigation.Vacancies.Details/@vacancy.Id">
+                    <img src="images/job-list-logo-01.png" alt="">
+                    <div class="job-list-content">
+                        <h4>@vacancy.Title <span class="full-time">@vacancy.JobType</span></h4>
+                        <div class="job-icons">
+                            <span><i class="fa fa-map-marker"></i> @vacancy.City, @vacancy.Province</span>
+                            <span><i class="fa fa-money"></i>$@vacancy.Rate</span>
+                        </div>
+                        <p>@vacancy.ShortDescription</p>
+                    </div>
+                </a>
+                <div class="clearfix"></div>
+            </li>
+        }
+    </ul>
+</div>
+@section onready{
+    $("#candidates-nav").attr("id", "current");
+}

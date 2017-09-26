@@ -1,0 +1,57 @@
+﻿@using TalentConnect.Infrastructure;
+@model TalentConnect.Areas.Admin.ViewModels.JobsViewModel
+@{
+    ViewBag.Title = "Manage Jobs";
+    Layout = "~/Views/Shared/_layoutsecondary.cshtml";
+
+}
+
+@section PageTitle{
+    <h2>Manage Jobs</h2>
+    <nav id="breadcrumbs">
+    <ul>
+        <li>You are here:</li>
+        <li><a href="#">Admin</a></li>
+        <li>Jobs</li>
+        <li>Listing</li>
+    </ul>
+</nav>
+}
+<p class="margin-bottom-25">Your listings are shown in the table below.</p>
+
+<table class="manage-table responsive-table">
+
+    <tr>
+        <th><i class="fa fa-file-text"></i> Title</th>
+        <th><i class="fa fa-check-square-o"></i> Filled?</th>
+        <th><i class="fa fa-calendar"></i> Posted On</th>
+        <th><i class="fa fa-calendar"></i> Closing On</th>
+        <th><i class="fa fa-user"></i> Applications</th>
+        <th></th>
+    </tr>
+    @foreach (var job in Model.Jobs)
+    {
+        <tr>
+            <td class="title"><a href="/@Navigation.Jobs.Area/@Navigation.Jobs.Controller/@Navigation.Jobs.Edit/@job.Id">@job.Title</a></td>
+            <td class="centered">
+                @if(job.Filled)
+                {
+                    <i class="fa fa-check"></i>
+                }
+                else
+                {
+                    <div>-</div>
+                }
+            </td>
+            <td>@job.CreatedDate</td>
+            <td>@job.ClosingDate</td>
+            <td class="centered">-</td>
+            <td class="action">
+                <a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<br>
+<a href="/@Navigation.Jobs.Area/@Navigation.Jobs.Controller/@Navigation.Jobs.Add" class="button">Add Job</a>
